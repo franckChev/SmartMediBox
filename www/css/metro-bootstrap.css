@@ -3550,6 +3550,10 @@ a {
   position: relative;
   font-family: 'Segoe UI_', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
 }
+
+.metro .horizontal-menu li:first-child {
+  margin-left:5px !important;
+}
 .metro .horizontal-menu li a {
   display: inline-block;
   text-decoration: none;
