@@ -33,7 +33,6 @@ c:\wamp\www\SmartMediBox\platforms\android\assets\www\cordova.js \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\cordova_plugins.js \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\css \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\fonts \
-c:\wamp\www\SmartMediBox\platforms\android\assets\www\img \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\index.html \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\js \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\css\iconFont.css \
@@ -53,10 +52,8 @@ c:\wamp\www\SmartMediBox\platforms\android\assets\www\fonts\OpenSans-Bold.woff \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\fonts\OpenSans-Light.woff \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\fonts\OpenSans.woff \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\fonts\PTSerif-Caption.woff \
-c:\wamp\www\SmartMediBox\platforms\android\assets\www\img\logo.png \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\js\index.js \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\js\jquery \
-c:\wamp\www\SmartMediBox\platforms\android\assets\www\js\jquery-ui-1.11.1.zip \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\js\metro \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\js\jquery\jquery.min.js \
 c:\wamp\www\SmartMediBox\platforms\android\assets\www\js\jquery\jquery.widget.min.js \
