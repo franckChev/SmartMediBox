@@ -2,11 +2,11 @@ html {
   font-size: 62.5%;
 }
 body {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
 }
 html,
 body {
-  padding: 10px;
+  padding: 0px;
   margin: 0;
   height: 100%;
 }
@@ -4848,8 +4848,8 @@ a {
   outline-color: transparent;
 }
 .metro .tile {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   margin: 0 10px 10px 0;
 }
 .metro .tile.half {
