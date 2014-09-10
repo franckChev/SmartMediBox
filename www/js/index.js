@@ -27,6 +27,10 @@ smartMediBoxApp.config(function ($routeProvider) {
                    otherwise({ redirectTo: '/' });
 });
 
+function StockCtrl($scope){
+    $scope.medocs = JSON.parse(localStorage.stock);
+}
+
 var app = {
     // Application Constructor
     initialize: function() {

@@ -1,4 +1,4 @@
-<section>
+<section ng-controller="StockCtrl">
     <table class="table striped bordered hovered">
         <thead>
             <tr>
@@ -8,22 +8,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr ng-repeat="medoc in medocs">
                 <td>
-                    Aspirine
+                   {{medoc.info.name}}
                 </td>
                 <td>
                     2
                 </td>
-                <td>
-                    <button type="button" class="btn btn-default">
-                        <i class="glyphicon glyphicon-ok"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Viagra</td>
-                <td>42</td>
                 <td>
                     <button type="button" class="btn btn-default">
                         <i class="glyphicon glyphicon-ok"></i>
