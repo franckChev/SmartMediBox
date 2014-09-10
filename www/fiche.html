@@ -138,9 +138,9 @@ var medoc_info;
 	{
 		$("#medoc_name").text(medoc_info.name);
 		$("#type").text(medoc_info.type);
-		$("#voie").text(medoc_info.voie);
-		$("#substance").text(medoc_info.substance);
-		$("#dosage").text(medoc_info.dosage);
+		$("#voie").text("Voie : " + medoc_info.voie);
+		$("#substance").text("Composant : " + medoc_info.substance);
+		$("#dosage").text("Dosage :" + medoc_info.dosage);
 	}
 	});
 
