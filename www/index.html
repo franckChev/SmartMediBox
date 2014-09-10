@@ -23,21 +23,31 @@
     <meta charset="utf-8" />
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />
-    <link rel="stylesheet" href="css/metro-bootstrap.css">
-    <link rel="stylesheet" href="css/metro-bootstrap-responsive.css">
-    <link href="css/iconFont.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/jquery/jquery.widget.min.js"></script>
-    <script src="js/metro/metro.min.js"></script>
-    <script src="js/index.js"></script>
+     <script src="js/index.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
     <title>SmartMediBox</title>
 </head>
 
-<body class="metro">
-    <div class="container">
-        <header>
-            <nav class="horizontal-menu compact">
-                <ul>
+<body>
+    <header>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">SmartMediBox</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
                     <li>
                         <a href="index.html">
                             <div class="tile ol-steel bg-darkEmerald">
@@ -99,45 +109,45 @@
                         </a>
                     </li>
                 </ul>
-            </nav>
-        </header>
-        <section>
-            <table class="table striped bordered hovered">
-                <thead>
-                    <tr>
-                        <th>Médicament</th>
-                        <th>Quantité</th>
-                        <th width="2%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Aspirine
-                        </td>
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            <button class="danger">
-                                <i class="icon-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Viagra</td>
-                        <td>42</td>
-                        <td>
-                            <button class="danger">
-                                <i class="icon-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <table class="table striped bordered hovered">
+            <thead>
+                <tr>
+                    <th>Médicament</th>
+                    <th>Quantité</th>
+                    <th width="2%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Aspirine
+                    </td>
+                    <td>
+                        2
+                    </td>
+                    <td>
+                        <button  type="button" class="btn btn-default">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Viagra</td>
+                    <td>42</td>
+                    <td>
+                      <button  type="button" class="btn btn-default">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-        </section>
-    </div>
+    </section>
 </body>
 <script type="text/javascript">
 app.initialize();
