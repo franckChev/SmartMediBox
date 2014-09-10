@@ -1,5 +1,59 @@
+<script type="text/javascript">
+
+var code = $("#barcode").val();
+var addMedoc = function(){
+ code = $("#barcode").val();
+//Stock
+var stock;
+if (localStorage.stock != undefined)
+	stock = JSON.parse(localStorage.stock);
+else
+	stock = new Object();
+			
+var medoc_info;
+//Le medoc existe ?
+if (stock[code] != undefined)
+	{
+		stock[code].quantity += 1;
+						localStorage.stock = JSON.stringify(stock);
+		$("#result").css("color", "green");
+		$("#result").text("Added !");
+		return;
+	}
+	else
+	{
+		//On cherche sur la bdd
+		$.get("http://vuesubjective.org/htmllearn/workspace/sante/index.php?code=" + code, 
+		function( data ) 
+		{
+			medoc_info = data;
+			if (medoc_info == undefined || medoc_info.error != undefined)
+			{
+				if ( medoc_info.error == undefined)
+					medoc_info.error = "No code";
+				$("#result").css("color", "red");
+				$("#result").text("Error : " +  medoc_info.error);
+			}
+			else
+			{
+				stock[code] = new Object();
+				stock[code].quantity = 1;
+				stock[code].info = medoc_info;
+				$("#result").css("color", "green");
+				$("#result").text("Success !");
+				localStorage.stock = JSON.stringify(stock);
+			}
+		});
+	}
+}
+</script>
 <section>
     <div>
         Veuillez scanner le code barre du médicament
+		<form action="" onsubmit="addMedoc();">
+		Code Barre:<input type="number " name="barcode" id="barcode"><br>
+  <input type="submit">
+</form>
+<p id="result"></p>
     </div>
 </section>
