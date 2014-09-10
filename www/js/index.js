@@ -17,6 +17,16 @@
  * under the License.
  */
 
+var smartMediBoxApp = angular.module('SmartMediBoxApp', ['ngRoute']);
+
+smartMediBoxApp.config(function ($routeProvider) {
+    $routeProvider.when("/stock", { templateUrl: "/SmartMedibox/www/views/stock.html" }).
+                   when("/planning", { templateUrl: "/SmartMedibox/www/views/planning.html" }).
+                   when("/addDrugs", { templateUrl: "/SmartMedibox/www/views/addDrugs.html" }).
+                   when("/param", { templateUrl: "/SmartMedibox/www/views/param.html" }).
+                   otherwise({ redirectTo: '/' });
+});
+
 var app = {
     // Application Constructor
     initialize: function() {
