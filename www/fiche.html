@@ -139,8 +139,14 @@ var medoc_info;
 		$("#medoc_name").text(medoc_info.name);
 		$("#type").text(medoc_info.type);
 		$("#voie").text("Voie : " + medoc_info.voie);
-		$("#substance").text("Composant : " + medoc_info.substance);
-		$("#dosage").text("Dosage :" + medoc_info.dosage);
+		var i = 0;
+		var text = "Composants : ";
+		while (medoc_info[i] != undefined)
+		{
+			text +=  medoc_info["substance" + i];
+			text += " Dosage :" + medoc_info["dosage" + i];
+		}
+		$("#substance").text(text);
 	}
 	});
 

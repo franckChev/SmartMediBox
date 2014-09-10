@@ -22,6 +22,7 @@ if (stock[code] != undefined)
 	}
 	else
 	{
+		$("#sub").attr("disabled", "true");
 		//On cherche sur la bdd
 		$.get("http://vuesubjective.org/htmllearn/workspace/sante/index.php?code=" + code, 
 		function( data ) 
@@ -43,6 +44,7 @@ if (stock[code] != undefined)
 				$("#result").text("Success !");
 				localStorage.stock = JSON.stringify(stock);
 			}
+					$("#sub").removeAttr("disabled");
 		});
 	}
 }
@@ -52,7 +54,7 @@ if (stock[code] != undefined)
         Veuillez scanner le code barre du médicament
 		<form action="" onsubmit="addMedoc();">
 		Code Barre:<input type="number " name="barcode" id="barcode"><br>
-  <input type="submit">
+  <input type="submit" id="sub">
 </form>
 <p id="result"></p>
     </div>
