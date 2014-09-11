@@ -62,7 +62,8 @@ smartMediBoxApp.controller('StockCtrl', function($scope) {
 
 smartMediBoxApp.controller('TasksCtrl', function($scope) {
     $scope.medocs = JSON.parse(localStorage.stock);
-    $scope.tasks = JSON.parse(localStorage.planning);
+	if (localStorage.planning != undefined)
+		$scope.tasks = JSON.parse(localStorage.planning);
     $("#test").append('<div> reponse : ' + localStorage.stock + '</div>')
     $scope.addTask = function() {
         var planning;

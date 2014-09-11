@@ -88,12 +88,12 @@ Code Barre:<input type="number " name="barcode" id="barcode"><br>
                          navigator.mozGetUserMedia ||
                          navigator.msGetUserMedia);
 
-  navigator.getMedia(
-    {
-      video: true,
-      audio: false
-    },
-    function(stream) {
+  //navigator.getMedia(
+//    {
+//      video: true,
+  //    audio: false
+   // },
+/*       function(stream) {
       if (navigator.mozGetUserMedia) {
         video.mozSrcObject = stream;
       } else {
@@ -101,6 +101,13 @@ Code Barre:<input type="number " name="barcode" id="barcode"><br>
         video.src = vendorURL.createObjectURL(stream);
       }
       video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
+    }*/
+   navigator.camera.getPicture(
+ function(pic) {
+		photo.setAttribute('src', pic);
     },
     function(err) {
       console.log("An error occured! " + err);
@@ -127,14 +134,14 @@ Code Barre:<input type="number " name="barcode" id="barcode"><br>
   }
 
   startbutton.addEventListener('click', function(ev){
-      takepicture();
+      //takepicture();
 	  console.log(getBarcodeFromImage('photo'));
     ev.preventDefault();
   }, false);
 
 })();
 
-setInterval(function () {takepicture(); decodeDirect();}, 1000);
+setInterval(function () {decodeDirect();}, 1000);
 </script>
 
 		<script type="text/javascript">
@@ -187,10 +194,12 @@ setInterval(function () {takepicture(); decodeDirect();}, 1000);
 			}
 			function DecodeBar()
 			{
+			showPicture.onload = function(){
 					ctx.drawImage(showPicture,0,0,Canvas.width,Canvas.height);
 					resultArray = [];
 					workerCount = 2;
 					Result.innerHTML+=".";
 					DecodeWorker.postMessage({ImageData: ctx.getImageData(0,0,Canvas.width,Canvas.height).data, Width: Canvas.width, Height: Canvas.height, cmd: "normal"});
+					}
 			}
 		</script>
