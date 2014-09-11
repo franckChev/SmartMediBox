@@ -109,14 +109,26 @@ smartMediBoxApp.controller('StockCtrl', function($scope) {
     $scope.medocs = JSON.parse(window.localStorage.getItem("stock"));
 
     $scope.takeDrugs = function(index) {
-        var stock = JSON.parse(localStorage.stock);
-        var sortedKeys = Object.keys(stock).sort();
-        stock[sortedKeys[index]].quantity -= 1;
-        if (stock[sortedKeys[index]].quantity == 0) {
-            delete stock[sortedKeys[index]];
+        var isOk = confirm("Etes vous sûr de le prendre ?");
+        if (isOk) {
+            var stock = JSON.parse(localStorage.stock);
+            var sortedKeys = Object.keys(stock).sort();
+            stock[sortedKeys[index]].quantity -= 1;
+            if (stock[sortedKeys[index]].quantity == 0) {
+                delete stock[sortedKeys[index]];
+            }
+            $scope.medocs = stock;
+            localStorage.stock = JSON.stringify(stock);
         }
-        $scope.medocs = stock;
-        localStorage.stock = JSON.stringify(stock);
+    };
+
+    $scope.selectDrug = function(medoc) {
+       alert(medoc.info.name + "\n" +
+                "Dosage: " + medoc.info.dosage0 + "\n" +
+                "Substance: " + medoc.info.substance0 + "\n" +
+                "Type: " + medoc.info.type + "\n" +
+                "Voie: " + medoc.info.voie);
+      
     };
 });
 
@@ -132,9 +144,11 @@ smartMediBoxApp.controller('TasksCtrl', function($scope) {
         } else {
             planning = new Object();
         }
-        if ($scope.leMedoc != undefined) {
-            planning[$scope.leMedoc] = {
-                name: $scope.leMedoc
+        if ($scope.leMedoc != undefined && $scope.leMedoc != "") {
+            planning[Object.keys(planning).length] = {
+                name: $scope.leMedoc,
+                hour: $("#time").val(),
+                com: $scope.medocCom,
             }
         };
         localStorage.planning = JSON.stringify(planning);

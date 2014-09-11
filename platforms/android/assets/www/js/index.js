@@ -118,6 +118,10 @@ smartMediBoxApp.controller('StockCtrl', function($scope) {
         $scope.medocs = stock;
         localStorage.stock = JSON.stringify(stock);
     };
+
+    $scope.selectDrug = function(medoc){
+        /*alert(medoc.info.name);*/
+    };
 });
 
 smartMediBoxApp.controller('TasksCtrl', function($scope) {

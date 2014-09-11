@@ -1,17 +1,16 @@
-
 <section ng-controller="DrugsCtrl">
     <div class="text-center">
-        <button ng-click="getBarcodeFromImage()">Veuillez scanner le code barre du médicament</button>
+        <form role="form">
+            <div class="form-group">
+                <button class="btn btn-default" ng-click="getBarcodeFromImage()">Scanner le code barre du médicament</button>
+            </div>
+            <div class="form-group">
+                <input ng-model="barCodeResult" name="barcode" type="text" id="barcode" placeholder="Le code barre ...">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" ng-click="addMedoc()" id="sub">Valider</button>
+            </div>
+        </form>
+        <p id="result"></p>
     </div>
-    </br>
-    <form>
-        Code Barre:
-        <input ng-model="barCodeResult" name="barcode" type="text" id="barcode">
-
-    </form>
-    </div>
-    <div class="text-center">
-        <button class="btn btn-default" id="sub" ng-click="addMedoc()">Valider</button>
-    </div>
-    <p id="result"></p>
 </section>

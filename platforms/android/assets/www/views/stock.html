@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="medoc in medocs">
+            <tr ng-repeat="medoc in medocs" ng-click="selectDrug(medoc)"> 
                 <td>
                     {{medoc.info.name}}
                 </td>
