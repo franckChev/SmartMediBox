@@ -50,19 +50,114 @@ if (stock[code] != undefined)
 	}
 }
 </script>
+
+ <script type="text/javascript" charset="utf-8">
+
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready",onDeviceReady,false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Uncomment to view the base64-encoded image data
+      // console.log(imageData);
+
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
+
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI
+      // console.log(imageURI);
+
+      // Get image handle
+      //
+      var largeImage = document.getElementById('Image');
+
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
+
+    // A button will call this function
+    //
+    function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function capturePhotoEdit() {
+      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+    // Called if something bad happens.
+    //
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+
+    </script>
 <section>
     <div>
         Veuillez scanner le code barre du médicament
-		<form action="" onsubmit="addMedoc();">
+		   <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+<img src="http://placekitten.com/g/320/261" id="Image" alt="photo">
 <video id="video"></video>
 <button id="startbutton">Scan</button>
 
-<img src="http://placekitten.com/g/320/261" id="Image" alt="photo">
+
 	<img width="320" height="240" src="about:blank" alt="" id="picture">
-<a data-role="button" data-inline="true" id="Decode">Decode</a>
+<button onclick="decodeDirect();">Decode</button>
  </br>
 <div id="Result"></div>
 <canvas id="canvas" hidden></canvas>
+		<form action="" onsubmit="addMedoc();">
 Code Barre:<input type="number " name="barcode" id="barcode"><br>
 
   <input type="submit" id="sub">
@@ -105,7 +200,9 @@ Code Barre:<input type="number " name="barcode" id="barcode"><br>
     function(err) {
       console.log("An error occured! " + err);
     }*/
-   navigator.camera.getPicture(
+	if (navigator.camera)
+	{
+	navigator.camera.getPicture(
  function(pic) {
 		photo.setAttribute('src', pic);
     },
@@ -124,6 +221,27 @@ Code Barre:<input type="number " name="barcode" id="barcode"><br>
       streaming = true;
     }
   }, false);
+  }
+  else
+  {
+  navigator.getMedia(
+    {
+      video: true,
+      audio: false
+    },
+      function(stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        video.src = vendorURL.createObjectURL(stream);
+      }
+      video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
+    });
+  }
 
 	takepicture = function () {
     canvas.width = width;
@@ -187,6 +305,7 @@ setInterval(function () {decodeDirect();}, 1000);
 			DecodeWorker.onmessage = receiveMessage;
 			decodeDirect = function()
 			{
+			console.log("lol");
 							var imgURL = takePicture.src;
 							showPicture.src = imgURL;
 							DecodeBar();
