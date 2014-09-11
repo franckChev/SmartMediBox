@@ -1,0 +1,324 @@
+
+<script type="text/javascript">
+
+var code = $("#barcode").val();
+var addMedoc = function(){
+ code = $("#barcode").val();
+//Stock
+var stock;
+if (localStorage.stock != undefined)
+	stock = JSON.parse(localStorage.stock);
+else
+	stock = new Object();
+			
+var medoc_info;
+//Le medoc existe ?
+if (stock[code] != undefined)
+	{
+		stock[code].quantity += 1;
+						localStorage.stock = JSON.stringify(stock);
+		$("#result").css("color", "green");
+		$("#result").text(stock[code].info.name + " Ajouté !");
+		return;
+	}
+	else
+	{
+		$("#sub").attr("disabled", "true");
+		//On cherche sur la bdd
+		$.get("http://vuesubjective.org/htmllearn/workspace/sante/index.php?code=" + code, 
+		function( data ) 
+		{
+			medoc_info = data;
+			if (medoc_info == undefined || medoc_info.error != undefined)
+			{
+				if ( medoc_info.error == undefined)
+					medoc_info.error = "No code";
+				$("#result").css("color", "red");
+				$("#result").text("Error : " +  medoc_info.error);
+			}
+			else
+			{
+				stock[code] = new Object();
+				stock[code].quantity = 1;
+				stock[code].info = medoc_info;
+				$("#result").css("color", "green");
+				$("#result").text(tock[code].info.name + " nouvellement ajouté !");
+				localStorage.stock = JSON.stringify(stock);
+			}
+					$("#sub").removeAttr("disabled");
+		});
+	}
+}
+</script>
+
+ <script type="text/javascript" charset="utf-8">
+
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready",onDeviceReady,false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Uncomment to view the base64-encoded image data
+      // console.log(imageData);
+
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
+
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI
+      // console.log(imageURI);
+
+      // Get image handle
+      //
+      var largeImage = document.getElementById('Image');
+
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
+
+    // A button will call this function
+    //
+    function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function capturePhotoEdit() {
+      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+    // Called if something bad happens.
+    //
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+
+    </script>
+<section>
+    <div>
+        Veuillez scanner le code barre du médicament
+		   <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+<img src="http://placekitten.com/g/320/261" id="Image" alt="photo">
+<video id="video"></video>
+<button id="startbutton">Scan</button>
+
+
+	<img width="320" height="240" src="about:blank" alt="" id="picture">
+<button onclick="decodeDirect();">Decode</button>
+ </br>
+<div id="Result"></div>
+<canvas id="canvas" hidden></canvas>
+		<form action="" onsubmit="addMedoc();">
+Code Barre:<input type="number " name="barcode" id="barcode"><br>
+
+  <input type="submit" id="sub">
+</form>
+<p id="result">lol</p>
+    </div>
+</section>
+<script type="text/javascript">
+
+// VIDEO
+(function() {
+
+  var streaming = false,
+      video        = document.querySelector('#video'),
+      canvas       = document.querySelector('#canvas'),
+      photo        = document.querySelector('#Image'),
+      startbutton  = document.querySelector('#startbutton'),
+      width = 160,
+      height = 0;
+
+  navigator.getMedia = ( navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia ||
+                         navigator.msGetUserMedia);
+
+  //navigator.getMedia(
+//    {
+//      video: true,
+  //    audio: false
+   // },
+/*       function(stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        video.src = vendorURL.createObjectURL(stream);
+      }
+      video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
+    }*/
+	if (navigator.camera)
+	{
+	navigator.camera.getPicture(
+ function(pic) {
+		photo.setAttribute('src', pic);
+    },
+    function(err) {
+      console.log("An error occured! " + err);
+    }
+  );
+
+  video.addEventListener('canplay', function(ev){
+    if (!streaming) {
+      height = video.videoHeight / (video.videoWidth/width);
+      video.setAttribute('width', width);
+      video.setAttribute('height', height);
+      canvas.setAttribute('width', width);
+      canvas.setAttribute('height', height);
+      streaming = true;
+    }
+  }, false);
+  }
+  else
+  {
+  navigator.getMedia(
+    {
+      video: true,
+      audio: false
+    },
+      function(stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        video.src = vendorURL.createObjectURL(stream);
+      }
+      video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
+    });
+  }
+
+	takepicture = function () {
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    var data = canvas.toDataURL('image/png');
+    photo.setAttribute('src', data);
+  }
+
+  startbutton.addEventListener('click', function(ev){
+      //takepicture();
+	  console.log(getBarcodeFromImage('photo'));
+    ev.preventDefault();
+  }, false);
+
+})();
+
+setInterval(function () {decodeDirect();}, 1000);
+</script>
+
+		<script type="text/javascript">
+			var takePicture = document.querySelector("#Image"),
+			showPicture = document.querySelector("#picture");
+			Result = document.querySelector("#result");
+			Canvas = document.createElement("canvas");
+			Canvas.width=640;
+			Canvas.height=480;
+			var resultArray = [];
+			ctx = Canvas.getContext("2d");
+			var workerCount = 0;
+			function receiveMessage(e) {
+				if(e.data.success === "log") {
+					console.log(e.data.result);
+					return;
+				}
+				if(e.data.finished) {
+					workerCount--;
+					if(workerCount) {
+						if(resultArray.length == 0) {
+							DecodeWorker.postMessage({ImageData: ctx.getImageData(0,0,Canvas.width,Canvas.height).data, Width: Canvas.width, Height: Canvas.height, cmd: "flip"});
+						} else {
+							workerCount--;
+						}
+					}
+				}
+				if(e.data.success){
+					var tempArray = e.data.result;
+					for(var i = 0; i < tempArray.length; i++) {
+						if(resultArray.indexOf(tempArray[i]) == -1) {
+							resultArray.push(tempArray[i]);
+						}
+					}
+					Result.innerHTML=resultArray.join("<br />");
+				}else{
+					if(resultArray.length === 0 && workerCount === 0) {
+						Result.innerHTML="Decoding failed.";
+					}
+				}
+			}
+			var DecodeWorker = new Worker("js/DecoderWorker.js");
+			DecodeWorker.onmessage = receiveMessage;
+			decodeDirect = function()
+			{
+			console.log("lol");
+							var imgURL = takePicture.src;
+							showPicture.src = imgURL;
+							DecodeBar();
+
+			}
+			function DecodeBar()
+			{
+			showPicture.onload = function(){
+					ctx.drawImage(showPicture,0,0,Canvas.width,Canvas.height);
+					resultArray = [];
+					workerCount = 2;
+					Result.innerHTML+=".";
+					DecodeWorker.postMessage({ImageData: ctx.getImageData(0,0,Canvas.width,Canvas.height).data, Width: Canvas.width, Height: Canvas.height, cmd: "normal"});
+					}
+			}
+		</script>
