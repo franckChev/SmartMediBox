@@ -1,8 +1,9 @@
 <section ng-controller="StockCtrl">
-    <table class="table striped bordered hovered">
+    <table class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
                 <th>Médicament</th>
+                <th>Administration</th>
                 <th>Quantité</th>
                 <th width="2%"></th>
             </tr>
@@ -10,17 +11,23 @@
         <tbody>
             <tr ng-repeat="medoc in medocs">
                 <td>
-                   {{medoc.info.name}}
+                    {{medoc.info.name}}
                 </td>
                 <td>
-                    2
+                    {{medoc.info.voie}}
                 </td>
                 <td>
-                    <button type="button" class="btn btn-default">
+                    {{medoc.quantity}}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" ng-click="takeDrugs($index)">
                         <i class="glyphicon glyphicon-ok"></i>
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
+    <div class="text-center">
+        <a href="#addDrugs" class="btn btn-default" role="button">Rajouter un médicament</a>
+    </div>
 </section>

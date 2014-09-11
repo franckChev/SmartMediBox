@@ -1,42 +1,33 @@
-<section>
-    <table class="table striped bordered hovered">
+<section ng-controller="TasksCtrl">
+    <table class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
                 <th>Médicament</th>
                 <th>Heure</th>
                 <th>Commentaire</th>
-                <th width="2%"></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr ng-repeat="task in tasks">
                 <td>
-                    Insuline
+                    {{task.name}}
                 </td>
                 <td>
-                    18h
+                    {{task.hour}}
                 </td>
                 <td>
-                    Pour éviter de mourir
+                    {{task.com}}
                 </td>
                 <td>
-                    <button class="danger">
-                        <i class="icon-remove"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Viagra</td>
-                <td>22h</td>
-                <td>
-                    Si madame est d'accord
-                </td>
-                <td>
-                    <button class="danger">
-                        <i class="icon-remove"></i>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="deleteTask($index)">
+                        <i class="glyphicon glyphicon-remove"></i>
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
+    <div class="text-center">
+        <a href="#addTask" class="btn  btn-default btn-center" role="button">Rajouter un plannification</a>
+    </div>
 </section>

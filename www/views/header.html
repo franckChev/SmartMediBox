@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default" role="navigation" ng-controller="NavCtrl">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -22,17 +22,12 @@
                       </a>
                 </li>
                 <li>
-                    <a href="#addDrugs">
-                        Rajouter un medicament
-                    </a>
-                </li>
-                <li>
                     <a href="#param">
                         Paramètres
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" ng-click="closeApp()">
                         Se Déconnecter
                     </a>
                 </li>
