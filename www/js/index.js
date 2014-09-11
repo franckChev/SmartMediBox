@@ -40,8 +40,13 @@ smartMediBoxApp.config(function($routeProvider) {
     });
 });
 
+smartMediBoxApp.controller('NavCtrl', function($scope) {
+    $scope.closeApp = function(){
+    };
+});
+
 smartMediBoxApp.controller('StockCtrl', function($scope) {
-    $scope.medocs = JSON.parse(localStorage.stock);
+    $scope.medocs = JSON.parse(window.localStorage.getItem("stock"));
 
     $scope.takeDrugs = function(index) {
         var stock = JSON.parse(localStorage.stock);
@@ -52,13 +57,13 @@ smartMediBoxApp.controller('StockCtrl', function($scope) {
         }
         $scope.medocs = stock;
         localStorage.stock = JSON.stringify(stock);
-        window.location.href = "#stock";
     };
 });
 
 smartMediBoxApp.controller('TasksCtrl', function($scope) {
     $scope.medocs = JSON.parse(localStorage.stock);
     $scope.tasks = JSON.parse(localStorage.planning);
+    $("#test").append('<div> reponse : ' + localStorage.stock + '</div>')
     $scope.addTask = function() {
         var planning;
         if (localStorage.planning != undefined) {
