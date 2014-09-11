@@ -1,0 +1,16 @@
+<section ng-controller="TasksCtrl">
+    <form role="form">
+        <div class="form-group">
+            <select class="form-control" ng-model="leMedoc">
+                <option ng-repeat="medoc in medocs" value="{{medoc.info.name}}">{{medoc.info.name}}</option>
+            </select>
+            <br/>
+            <br/>
+            <div class="text-center">
+                <button class="btn btn-default" ng-click="addTask()">Valider</button>
+            </div>
+        </div>
+    </form>
+
+    </script>
+</section>
