@@ -42,18 +42,65 @@ smartMediBoxApp.config(function($routeProvider) {
 
 smartMediBoxApp.controller('NavCtrl', function($scope) {
     $scope.closeApp = function() {
-        navigator.camera.getPicture(onSuccess, onFail, {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL
-        });
 
-        function onSuccess(imageData) {
-            var image = document.getElementById('myImage');
-            image.src = "data:image/jpeg;base64," + imageData;
-        }
+    };
+});
 
-        function onFail(message) {
-            alert('Failed because: ' + message);
+smartMediBoxApp.controller('DrugsCtrl', function($scope) {
+    $scope.getBarcodeFromImage = function() {
+        cordova.plugins.barcodeScanner.scan(
+            function(result) {
+                /*alert("We got a barcode\n" +
+                    "Result: " + result.text + "\n" +
+                    "Format: " + result.format + "\n" +
+                    "Cancelled: " + result.cancelled);*/
+                $scope.barCodeResult = result.text;
+                $("#barcode").val(result.text);
+            },
+            function(error) {
+                alert("Scanning failed: " + error);
+            }
+        );
+    }
+
+    $scope.addMedoc = function() {
+        code = $("#barcode").val();
+        //Stock
+        var stock;
+        if (localStorage.stock != undefined)
+            stock = JSON.parse(localStorage.stock);
+        else
+            stock = new Object();
+
+        var medoc_info;
+        //Le medoc existe ?
+        if (stock[code] != undefined) {
+            stock[code].quantity += 1;
+            localStorage.stock = JSON.stringify(stock);
+            $("#result").css("color", "green");
+            $("#result").text(stock[code].info.name + " Ajouté !");
+            return;
+        } else {
+            $("#sub").attr("disabled", "true");
+            //On cherche sur la bdd
+            $.get("http://vuesubjective.org/htmllearn/workspace/sante/index.php?code=" + code,
+                function(data) {
+                    medoc_info = data;
+                    if (medoc_info == undefined || medoc_info.error != undefined) {
+                        if (medoc_info.error == undefined)
+                            medoc_info.error = "No code";
+                        $("#result").css("color", "red");
+                        $("#result").text("Error : " + medoc_info.error);
+                    } else {
+                        stock[code] = new Object();
+                        stock[code].quantity = 1;
+                        stock[code].info = medoc_info;
+                        $("#result").css("color", "green");
+                        $("#result").text(stock[code].info.name + " nouvellement ajouté !");
+                        localStorage.stock = JSON.stringify(stock);
+                    }
+                    $("#sub").removeAttr("disabled");
+                });
         }
     };
 });
@@ -74,10 +121,10 @@ smartMediBoxApp.controller('StockCtrl', function($scope) {
 });
 
 smartMediBoxApp.controller('TasksCtrl', function($scope) {
-    $scope.medocs = JSON.parse(localStorage.stock);
+    if (localStorage.stock != undefined)
+        $scope.medocs = JSON.parse(localStorage.stock);
     if (localStorage.planning != undefined)
         $scope.tasks = JSON.parse(localStorage.planning);
-    $("#test").append('<div> reponse : ' + localStorage.stock + '</div>')
     $scope.addTask = function() {
         var planning;
         if (localStorage.planning != undefined) {

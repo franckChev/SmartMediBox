@@ -1,7 +1,15 @@
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes.dex : \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\com\phonegap\plugins\barcodescanner\BarcodeScanner.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\BuildConfig.class \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$array.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$attr.class \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$color.class \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$dimen.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$drawable.class \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$id.class \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$layout.class \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$menu.class \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$raw.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$string.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R$xml.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\io\cordova\hellocordova\R.class \
@@ -10,3 +18,4 @@ c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\org\apache\cordova\
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\org\apache\cordova\camera\ExifHelper.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\classes\org\apache\cordova\camera\FileHelper.class \
 c:\wamp\www\SmartMediBox\platforms\android\ant-build\dexedLibs\classes-ee807e458a604a251f0238007929a4fd.jar \
+c:\wamp\www\SmartMediBox\platforms\android\ant-build\dexedLibs\com.google.zxing.client.android.captureactivity-2546eb1958682a8ad92b73a2ce4e8c30.jar \
